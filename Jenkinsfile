@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('Test') {
-      steps {
-        echo 'Execute pytest from source code'
+      parallel {
+        stage('Test') {
+          steps {
+            echo 'Execute pytest from source code'
+          }
+        }
+
+        stage('') {
+          steps {
+            echo 'Skip test'
+          }
+        }
+
       }
     }
 
