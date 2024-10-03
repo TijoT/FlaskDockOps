@@ -1,0 +1,6 @@
+# add files to be ignored while building image
+README.md
+__pycache__
+*.pyc
+*.pyo
+*.pyd
