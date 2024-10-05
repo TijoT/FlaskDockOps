@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get upgrade -y --no-install-recommends 
 
-COPY requirements.txt /usr/app/    
+COPY ./requirements.txt /usr/app/    
 
 RUN pip install -r requirements.txt
 

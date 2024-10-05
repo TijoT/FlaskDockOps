@@ -8,39 +8,20 @@ pipeline {
       }
     }
 
-    stage('Test') {
-      steps {
-        echo 'Print test '
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        echo 'Print deploym'
-      }
-    }
-
     stage('Build docker') {
       steps{
         sh ("tree")
         sh ("docker-compose -f docker-compose_app.yaml up -d")
         echo "Docker-compose-build Build Image Completed"  
       }
-
     }
 
     stage('Test') {
       steps{
         sh ("cd src")
         sh ("pytest tests/")
-        
       }
-
     }
-
-
   }
-  options {
-    skipDefaultCheckout(true)
-  }
+
 }
