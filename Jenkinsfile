@@ -10,6 +10,7 @@ pipeline {
 
     stage('Build docker') {
       steps{
+        sh ("docker compose -f docker-compose_app.yaml up -d")
         sh ("docker-compose -f docker-compose_app.yaml up -d")
         echo "Docker-compose-build Build Image Completed"  
       }
