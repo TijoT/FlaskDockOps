@@ -1,8 +1,4 @@
 pipeline {
-    options {
-        skipDefaultCheckout true
-    }
-
   agent any
   stages {
     stage('Checkout') {
@@ -11,5 +7,20 @@ pipeline {
       }
     }
 
+    stage('Test') {
+      steps {
+        echo 'Print test '
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Print deploym'
+      }
+    }
+
+  }
+  options {
+    skipDefaultCheckout(true)
   }
 }
