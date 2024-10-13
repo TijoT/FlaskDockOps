@@ -1,6 +1,8 @@
 
 services:
-  web_app:
+  flaskapp:
     build: 
       context: ./src
       dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
