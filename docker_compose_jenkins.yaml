@@ -17,7 +17,3 @@ services:
       # relative path of env variables
       - ./config/jenkins.env 
     restart: on-failure
-  web_app:
-    build: 
-      context: ./src
-      dockerfile: ./Dockerfile
