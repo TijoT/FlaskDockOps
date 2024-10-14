@@ -1,12 +1,16 @@
 
 # Jenkins CI/CD with Docker
 
-Project demonstrates CI with Jenkins server. 
-Jenkins server started as a container in debian based environment.
+Project demonstrates CI/CD pipeline of a Flask app using Jenkins and Docker. 
+The official Jenkins (LTS) docker image is customized to include docker application, enabling 
+the building of Docker images within the Jenkins container.
 
 ## Start Jenkins server
-Docker compose file contains two services - DockerInDocker, Custom built Jenkins image.
-Build and start jenkins server by using the following command:  
+The `docker_compose_jenkins.yaml` defines two services: 
+1. DockerInDocker: service to run Docker within Docker
+2. Jenkins: customized Jenkins image with blueocean plugin
+
+To build and start jenkins server, run the following command:  
 `docker compose -f docker_compose_jenkins.yaml up -d`
 
 To rebuild the docker image and start Jenkins server fresh, run the following commands:
@@ -14,18 +18,28 @@ To rebuild the docker image and start Jenkins server fresh, run the following co
 `docker volume remove VOLUMENAME`   -- remove obsolete volumes
 `docker compose -f docker_compose_jenkins.yaml build --no-cache`
 
-Reference: 
+References:  
     https://www.jenkins.io/doc/book/installing/docker/
     https://www.jenkins.io/doc/book/installing/docker/#setup-wizard
 
-## Server initial admin password
-Once jenkins server is up & running, fetch admin password by accessing the file 
-in the docker container by using the following command  
+## Retrieve initial admin password
+Once Jenkins server is up and running, you need the initial admin password to setup Jenkins. 
+To retrieve it from the docker container, run the following command
+
 `docker exec DOCKER_CONTAINER_ID cat /var/jenkins_home/secrets/initialAdminPassword`
+
+Create login details and install relevant plugins to continue working with Jenkins.
+
+## Flask app
+The Flask app is a simple web application that runs in debug mode, listening on port `3000`. When the app is accessed,
+it displays a message `Congrats!!`. 
+
+Pytest is used to run tests and verify the flask app.
 
 ## CI pipeline in Jenkins
 Create a multi-stage pipeline that includes the following steps:
-* Build: build a docker image to start flask app
-* Test: Run pytest to check flask app
-* Deploy: Push docker image to docker repo when tests are successfull
+* Build: Build a Docker image that packages the Flask app. Once built, launch the Flask app by starting Docker container.
+* Test: Execute `pytest` to validate flask app running inside the container
+* Teardown: After testing, stop and remove the Docker container to clean up resources
+* Deploy: If tests are passed, push Docker image to docker repo for further use.
 
