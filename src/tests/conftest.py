@@ -1,6 +1,6 @@
 import pytest
 
-from src.server.webapp import app
+from .. server.webapp import app
 
 @pytest.fixture
 def client():
