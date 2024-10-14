@@ -11,22 +11,22 @@ The `docker_compose_jenkins.yaml` defines two services:
 2. Jenkins: customized Jenkins image with blueocean plugin
 
 To build and start jenkins server, run the following command:  
-`docker compose -f docker_compose_jenkins.yaml up -d`
+    `docker compose -f docker_compose_jenkins.yaml up -d`
 
-To rebuild the docker image and start Jenkins server fresh, run the following commands:
-`docker network remove NETWORKID`   -- remove obsolete networks
-`docker volume remove VOLUMENAME`   -- remove obsolete volumes
-`docker compose -f docker_compose_jenkins.yaml build --no-cache`
+To rebuild the docker image and start Jenkins server fresh, run the following commands:  
+    `docker network remove NETWORKID`   -- remove obsolete networks  
+    `docker volume remove VOLUMENAME`   -- remove obsolete volumes  
+    `docker compose -f docker_compose_jenkins.yaml build --no-cache`
 
 References:  
-    https://www.jenkins.io/doc/book/installing/docker/
+    https://www.jenkins.io/doc/book/installing/docker/  
     https://www.jenkins.io/doc/book/installing/docker/#setup-wizard
 
 ## Retrieve initial admin password
 Once Jenkins server is up and running, you need the initial admin password to setup Jenkins. 
 To retrieve it from the docker container, run the following command
 
-`docker exec DOCKER_CONTAINER_ID cat /var/jenkins_home/secrets/initialAdminPassword`
+    `docker exec DOCKER_CONTAINER_ID cat /var/jenkins_home/secrets/initialAdminPassword`
 
 Create login details and install relevant plugins to continue working with Jenkins.
 
