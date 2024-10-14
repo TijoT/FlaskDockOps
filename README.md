@@ -7,8 +7,8 @@ the building of Docker images within the Jenkins container.
 
 ## Start Jenkins server
 The `docker_compose_jenkins.yaml` defines two services: 
-1. DockerInDocker: service to run Docker within Docker
-2. Jenkins: customized Jenkins image with blueocean plugin
+1. `jenkins-docker`: service to run Docker within Docker
+2. `jenkins-blueocean`: customized Jenkins image with blueocean plugin
 
 To build and start jenkins server, run the following command:  
     `docker compose -f docker_compose_jenkins.yaml up -d`
@@ -24,8 +24,7 @@ References:
 
 ## Retrieve initial admin password
 Once Jenkins server is up and running, you need the initial admin password to setup Jenkins. 
-To retrieve it from the docker container, run the following command
-
+To retrieve it from the docker container, run the following command  
     `docker exec DOCKER_CONTAINER_ID cat /var/jenkins_home/secrets/initialAdminPassword`
 
 Create login details and install relevant plugins to continue working with Jenkins.
