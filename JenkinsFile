@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout repo'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Github_PAT', url: 'https://github.com/TijoT/FlaskCI.git']])
+            }
+        }
+        
+        stage('Build & run docker container') {
+            steps {
+                sh 'docker compose -f docker_compose_app.yaml build --no-cache'
+                sh 'docker compose -f docker_compose_app.yaml up -d'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Execute pytest from flask container'
+                sh 'docker exec -t web-app python3 -m pytest'
+            }
+        }
+        
+        stage('Teardown') {
+            steps {
+                echo 'Stop docker container'
+                sh 'docker compose -f docker_compose_app.yaml down'
+                sh 'docker system prune --volumes -f'
+            }
+        }
+    }
+}
