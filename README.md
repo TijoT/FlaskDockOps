@@ -5,6 +5,11 @@ Project demonstrates CI/CD pipeline of a Flask app using Jenkins and Docker.
 The official Jenkins (LTS) docker image is customized to include docker application, enabling 
 the building of Docker images within the Jenkins container.
 
+## Prerequisites
+Before you begin, ensure that Docker version 2 is installed on your host system. 
+You can easily install Docker by executing the following command in your terminal:
+`curl -fsSL https://get.docker.com | sh`
+
 ## Start Jenkins server
 The `docker_compose_jenkins.yaml` defines two services: 
 1. `jenkins-docker`: service to run Docker within Docker
